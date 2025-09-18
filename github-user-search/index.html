@@ -22,6 +22,12 @@
             color: #f0f6fc;
             min-height: 100vh;
             padding: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        body.light-mode {
+            background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+            color: #24292e;
         }
         
         .container {
@@ -44,11 +50,44 @@
             -webkit-text-fill-color: transparent;
         }
         
+        .light-mode header h1 {
+            background: linear-gradient(90deg, #4a6fa5, #6a3093);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
         header p {
             font-size: 1.2rem;
             opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #f0f6fc;
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .theme-toggle {
+            background: rgba(0, 0, 0, 0.1);
+            color: #24292e;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg);
         }
         
         .search-container {
@@ -59,6 +98,12 @@
             margin-bottom: 40px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .search-container {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .search-box {
@@ -76,10 +121,20 @@
             background: rgba(255, 255, 255, 0.12);
             color: white;
             outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .search-input {
+            background: rgba(0, 0, 0, 0.05);
+            color: #24292e;
         }
         
         .search-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .light-mode .search-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
         }
         
         .search-button {
@@ -116,6 +171,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        .light-mode .user-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
         .user-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
@@ -128,12 +188,22 @@
             object-fit: cover;
             margin: 0 auto 15px;
             border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .avatar {
+            border: 3px solid rgba(0, 0, 0, 0.1);
         }
         
         .user-name {
             font-size: 1.5rem;
             margin-bottom: 10px;
             color: #8ca6db;
+            transition: color 0.3s ease;
+        }
+        
+        .light-mode .user-name {
+            color: #4a6fa5;
         }
         
         .user-bio {
@@ -150,6 +220,12 @@
             padding: 10px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border 0.3s ease;
+        }
+        
+        .light-mode .user-stats {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .stat {
@@ -160,6 +236,11 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #b993d6;
+            transition: color 0.3s ease;
+        }
+        
+        .light-mode .stat-value {
+            color: #6a3093;
         }
         
         .stat-label {
@@ -192,6 +273,11 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .error-message {
+            background: rgba(0, 0, 0, 0.05);
         }
         
         .loading {
@@ -208,6 +294,11 @@
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
+        }
+        
+        .light-mode .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #4a6fa5;
         }
         
         @keyframes spin {
@@ -230,7 +321,18 @@
             font-size: 0.9rem;
         }
         
+        .rate-limit-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
         @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
             .search-box {
                 flex-direction: column;
             }
@@ -247,6 +349,13 @@
             .results-container {
                 grid-template-columns: 1fr;
             }
+            
+            .theme-toggle {
+                position: relative;
+                top: unset;
+                right: unset;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -261,18 +370,37 @@
                     const response = await axios.get(`https://api.github.com/users/${username}`);
                     return response.data;
                 } catch (error) {
-                    throw new Error('User not found');
+                    if (error.response && error.response.status === 404) {
+                        throw new Error('User not found');
+                    } else if (error.response && error.response.status === 403) {
+                        throw new Error('API rate limit exceeded. Please try again later.');
+                    } else {
+                        throw new Error('An error occurred while fetching user data');
+                    }
                 }
             }
         };
 
-        const { useState } = React;
+        const { useState, useEffect } = React;
         
         const GitHubUserSearch = () => {
             const [searchTerm, setSearchTerm] = useState('');
             const [userData, setUserData] = useState(null);
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
+            const [darkMode, setDarkMode] = useState(true);
+            
+            // Apply dark/light mode to body
+            useEffect(() => {
+                if (darkMode) {
+                    document.body.classList.add('light-mode');
+                    document.body.classList.remove('dark-mode');
+                } else {
+                    document.body.classList.remove('light-mode');
+                    document.body.classList.add('dark-mode');
+                }
+                document.body.className = darkMode ? '' : 'light-mode';
+            }, [darkMode]);
             
             const searchUser = async () => {
                 if (!searchTerm.trim()) return;
@@ -285,7 +413,7 @@
                     const data = await githubService.fetchUserData(searchTerm);
                     setUserData(data);
                 } catch (err) {
-                    setError('Looks like we can\'t find the user');
+                    setError(err.message);
                 } finally {
                     setLoading(false);
                 }
@@ -296,8 +424,16 @@
                 searchUser();
             };
             
+            const toggleTheme = () => {
+                setDarkMode(!darkMode);
+            };
+            
             return (
                 <div className="container">
+                    <button className="theme-toggle" onClick={toggleTheme}>
+                        {darkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+                    </button>
+                    
                     <header>
                         <h1>GitHub User Search</h1>
                         <p>Find GitHub users and explore their profiles</p>
@@ -338,6 +474,9 @@
                                     src={userData.avatar_url}
                                     alt={userData.login}
                                     className="avatar"
+                                    onError={(e) => {
+                                        e.target.src = 'https://via.placeholder.com/120/0f2027/ffffff?text=No+Image';
+                                    }}
                                 />
                                 <h2 className="user-name">{userData.name || userData.login}</h2>
                                 {userData.bio && <p className="user-bio">{userData.bio}</p>}
@@ -372,11 +511,14 @@
                     {!loading && !userData && !error && (
                         <div className="initial-message">
                             <p>Enter a GitHub username to start searching</p>
+                            <p className="rate-limit-message">
+                                <i className="fas fa-info-circle"></i> Note: GitHub API has rate limits. You might need to wait if you make too many requests.
+                            </p>
                         </div>
                     )}
                     
                     <footer>
-                        <p>Created with React and GitHub API</p>
+                        <p>Created with React and GitHub API • Deployed on Vercel</p>
                     </footer>
                 </div>
             );
