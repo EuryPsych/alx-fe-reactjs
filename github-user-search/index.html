@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Search</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #f0f6fc;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #8ca6db, #b993d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px 0 0 10px;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            outline: none;
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-button {
+            padding: 15px 25px;
+            background: linear-gradient(90deg, #8ca6db, #b993d6);
+            border: none;
+            border-radius: 0 10px 10px 0;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-button:hover {
+            background: linear-gradient(90deg, #7b95d2, #a882cb);
+            transform: translateY(-2px);
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .user-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #8ca6db;
+        }
+        
+        .user-bio {
+            margin-bottom: 15px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #b993d6;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .profile-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #8ca6db, #b993d6);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .error-message {
+            text-align: center;
+            color: #ff6b6b;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 40px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #8ca6db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .initial-message {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 40px;
+            opacity: 0.7;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .search-button {
+                border-radius: 10px;
+            }
+            
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        
+        const GitHubUserSearch = () => {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [users, setUsers] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+            
+            const searchUsers = async () => {
+                if (!searchTerm.trim()) return;
+                
+                setLoading(true);
+                setError(null);
+                
+                try {
+                    const response = await axios.get(
+                        `https://api.github.com/search/users?q=${searchTerm}&per_page=9`
+                    );
+                    
+                    // Get detailed information for each user
+                    const userDetails = await Promise.all(
+                        response.data.items.map(user => 
+                            axios.get(`https://api.github.com/users/${user.login}`)
+                        )
+                    );
+                    
+                    setUsers(userDetails.map(res => res.data));
+                } catch (err) {
+                    setError('Failed to fetch users. Please try again later.');
+                    console.error('Error fetching users:', err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                searchUsers();
+            };
+            
+            return (
+                <div className="container">
+                    <header>
+                        <h1>GitHub User Search</h1>
+                        <p>Find GitHub users and explore their profiles</p>
+                    </header>
+                    
+                    <div className="search-container">
+                        <form onSubmit={handleSubmit} className="search-box">
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Enter a GitHub username..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button type="submit" className="search-button">
+                                <i className="fas fa-search"></i> Search
+                            </button>
+                        </form>
+                    </div>
+                    
+                    {loading && (
+                        <div className="loading">
+                            <div className="spinner"></div>
+                            <p>Searching GitHub...</p>
+                        </div>
+                    )}
+                    
+                    {error && (
+                        <div className="error-message">
+                            <i className="fas fa-exclamation-circle"></i> {error}
+                        </div>
+                    )}
+                    
+                    {!loading && users.length > 0 && (
+                        <div className="results-container">
+                            {users.map(user => (
+                                <UserCard key={user.id} user={user} />
+                            ))}
+                        </div>
+                    )}
+                    
+                    {!loading && users.length === 0 && !error && (
+                        <div className="initial-message">
+                            <p>Enter a GitHub username to start searching</p>
+                        </div>
+                    )}
+                    
+                    <footer>
+                        <p>Created with React and GitHub API</p>
+                    </footer>
+                </div>
+            );
+        };
+        
+        const UserCard = ({ user }) => {
+            return (
+                <div className="user-card">
+                    <img
+                        src={user.avatar_url}
+                        alt={user.login}
+                        className="avatar"
+                    />
+                    <h2 className="user-name">{user.name || user.login}</h2>
+                    {user.bio && <p className="user-bio">{user.bio}</p>}
+                    
+                    <div className="user-stats">
+                        <div className="stat">
+                            <div className="stat-value">{user.public_repos}</div>
+                            <div className="stat-label">Repositories</div>
+                        </div>
+                        <div className="stat">
+                            <div className="stat-value">{user.followers}</div>
+                            <div className="stat-label">Followers</div>
+                        </div>
+                        <div className="stat">
+                            <div className="stat-value">{user.following}</div>
+                            <div className="stat-label">Following</div>
+                        </div>
+                    </div>
+                    
+                    <a
+                        href={user.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="profile-link"
+                    >
+                        <i className="fab fa-github"></i> View Profile
+                    </a>
+                </div>
+            );
+        };
+        
+        ReactDOM.createRoot(document.getElementById('root')).render(<GitHubUserSearch />);
+    </script>
+</body>
+</html>
