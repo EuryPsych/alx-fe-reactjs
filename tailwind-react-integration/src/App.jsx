@@ -1,10 +1,10 @@
 // src/App.jsx
-import UserProfile from './components/UserProfile'
-import './App.css'
+import UserProfile from './components/UserProfile';
+import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="App">
       <UserProfile />
     </div>
   );
