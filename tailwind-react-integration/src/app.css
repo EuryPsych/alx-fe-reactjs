@@ -1,185 +1,39 @@
-/* App.css */
-/* Custom styles that extend Tailwind CSS functionality */
+/* App.css - Additional custom animations */
 
-/* Custom gradient background animation */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animated-gradient {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-/* Custom button styles */
-.custom-btn {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-.custom-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s;
-}
-
-.custom-btn:hover::before {
-  left: 100%;
-}
-
-/* Custom card hover effects */
-.feature-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-}
-
-.feature-card:hover {
-  transform: translateY(-8px) rotateX(5deg);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Custom scrollbar for webkit browsers */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
-}
-
-/* Custom text shadow */
-.text-shadow {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.text-shadow-lg {
-  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Custom pulse animation */
-@keyframes pulse-glow {
+/* Custom pulse animation for interactive elements */
+@keyframes gentle-pulse {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    transform: scale(1.02);
   }
 }
 
-.pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+.hover-gentle-pulse:hover {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Custom glow effect */
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Smooth color transitions for all interactive elements */
+.interactive-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom bounce animation */
-@keyframes bounce-soft {
+@keyframes custom-bounce {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 }
 
-.bounce-soft {
-  animation: bounce-soft 3s ease-in-out infinite;
-}
-
-/* Responsive text sizes */
-@media (max-width: 640px) {
-  .responsive-text {
-    font-size: 1.5rem;
-  }
-}
-
-/* Custom loading spinner */
-.loading-spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Custom focus styles for accessibility */
-.custom-focus:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-/* Dark mode support (if you want to add dark mode later) */
-@media (prefers-color-scheme: dark) {
-  .dark-mode-auto {
-    background-color: #1a202c;
-    color: #e2e8f0;
-  }
-}
-
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  .print-break {
-    page-break-after: always;
-  }
-}
-
-/* Custom utility classes that extend Tailwind */
-.bg-grid-pattern {
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Custom border animations */
-.border-animate {
-  position: relative;
-  border: 2px solid transparent;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4) border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+.hover-bounce:hover {
+  animation: custom-bounce 0.5s ease-in-out;
 }
