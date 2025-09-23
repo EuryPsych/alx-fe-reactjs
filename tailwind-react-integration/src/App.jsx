@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <UserProfile />
     </div>
   );
