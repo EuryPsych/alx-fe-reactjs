@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom utilities for line clamping */
+/* Custom styles */
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;

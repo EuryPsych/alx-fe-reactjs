@@ -18,14 +18,12 @@ const AddRecipeForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -34,7 +32,6 @@ const AddRecipeForm = () => {
     }
   };
 
-  // Handle ingredient changes
   const handleIngredientChange = (index, value) => {
     const newIngredients = [...formData.ingredients];
     newIngredients[index] = value;
@@ -44,7 +41,6 @@ const AddRecipeForm = () => {
     }));
   };
 
-  // Handle instruction changes
   const handleInstructionChange = (index, value) => {
     const newInstructions = [...formData.instructions];
     newInstructions[index] = value;
@@ -54,7 +50,6 @@ const AddRecipeForm = () => {
     }));
   };
 
-  // Add new ingredient field
   const addIngredient = () => {
     setFormData(prev => ({
       ...prev,
@@ -62,7 +57,6 @@ const AddRecipeForm = () => {
     }));
   };
 
-  // Remove ingredient field
   const removeIngredient = (index) => {
     if (formData.ingredients.length > 1) {
       const newIngredients = formData.ingredients.filter((_, i) => i !== index);
@@ -73,7 +67,6 @@ const AddRecipeForm = () => {
     }
   };
 
-  // Add new instruction field
   const addInstruction = () => {
     setFormData(prev => ({
       ...prev,
@@ -81,7 +74,6 @@ const AddRecipeForm = () => {
     }));
   };
 
-  // Remove instruction field
   const removeInstruction = (index) => {
     if (formData.instructions.length > 1) {
       const newInstructions = formData.instructions.filter((_, i) => i !== index);
@@ -92,35 +84,29 @@ const AddRecipeForm = () => {
     }
   };
 
-  // Form validation
   const validateForm = () => {
     const newErrors = {};
 
-    // Required field validation
     if (!formData.title.trim()) newErrors.title = 'Recipe title is required';
     if (!formData.summary.trim()) newErrors.summary = 'Recipe summary is required';
     if (!formData.prepTime.trim()) newErrors.prepTime = 'Prep time is required';
     if (!formData.cookingTime.trim()) newErrors.cookingTime = 'Cooking time is required';
     if (!formData.servings) newErrors.servings = 'Servings is required';
 
-    // Ingredients validation - at least 2 ingredients
     const validIngredients = formData.ingredients.filter(ing => ing.trim() !== '');
     if (validIngredients.length < 2) {
       newErrors.ingredients = 'At least 2 ingredients are required';
     }
 
-    // Instructions validation - at least 1 instruction
     const validInstructions = formData.instructions.filter(inst => inst.trim() !== '');
     if (validInstructions.length === 0) {
       newErrors.instructions = 'At least 1 instruction is required';
     }
 
-    // Image URL validation (optional but if provided, should be valid)
     if (formData.image && !isValidUrl(formData.image)) {
       newErrors.image = 'Please enter a valid image URL';
     }
 
-    // Servings validation
     if (formData.servings && (formData.servings < 1 || formData.servings > 20)) {
       newErrors.servings = 'Servings must be between 1 and 20';
     }
@@ -128,7 +114,6 @@ const AddRecipeForm = () => {
     return newErrors;
   };
 
-  // URL validation helper
   const isValidUrl = (string) => {
     try {
       new URL(string);
@@ -138,7 +123,6 @@ const AddRecipeForm = () => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -150,14 +134,12 @@ const AddRecipeForm = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
-      // In a real app, you would send this to your backend
       const recipeData = {
         ...formData,
         ingredients: formData.ingredients.filter(ing => ing.trim() !== ''),
         instructions: formData.instructions.filter(inst => inst.trim() !== ''),
-        id: Date.now(), // Temporary ID
+        id: Date.now(),
         nutrition: {
           calories: 0,
           protein: '0g',
@@ -168,10 +150,8 @@ const AddRecipeForm = () => {
 
       console.log('Recipe data to submit:', recipeData);
       
-      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Show success message and redirect
       alert('Recipe added successfully!');
       navigate('/');
       
@@ -186,7 +166,6 @@ const AddRecipeForm = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate(-1)}
@@ -201,15 +180,12 @@ const AddRecipeForm = () => {
           <p className="text-gray-600 mt-2">Share your delicious recipe with the community</p>
         </div>
 
-        {/* Form */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Basic Information Section */}
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b">Basic Information</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Recipe Title */}
                 <div className="md:col-span-2">
                   <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
                     Recipe Title *
@@ -230,7 +206,6 @@ const AddRecipeForm = () => {
                   )}
                 </div>
 
-                {/* Recipe Summary */}
                 <div className="md:col-span-2">
                   <label htmlFor="summary" className="block text-sm font-medium text-gray-700 mb-2">
                     Recipe Summary *
@@ -251,7 +226,6 @@ const AddRecipeForm = () => {
                   )}
                 </div>
 
-                {/* Image URL */}
                 <div className="md:col-span-2">
                   <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">
                     Image URL
@@ -273,7 +247,6 @@ const AddRecipeForm = () => {
                   <p className="mt-1 text-sm text-gray-500">Optional. Leave empty for a placeholder image.</p>
                 </div>
 
-                {/* Prep Time */}
                 <div>
                   <label htmlFor="prepTime" className="block text-sm font-medium text-gray-700 mb-2">
                     Preparation Time *
@@ -294,7 +267,6 @@ const AddRecipeForm = () => {
                   )}
                 </div>
 
-                {/* Cooking Time */}
                 <div>
                   <label htmlFor="cookingTime" className="block text-sm font-medium text-gray-700 mb-2">
                     Cooking Time *
@@ -315,7 +287,6 @@ const AddRecipeForm = () => {
                   )}
                 </div>
 
-                {/* Difficulty */}
                 <div>
                   <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 mb-2">
                     Difficulty Level
@@ -333,7 +304,6 @@ const AddRecipeForm = () => {
                   </select>
                 </div>
 
-                {/* Servings */}
                 <div>
                   <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-2">
                     Servings *
@@ -358,7 +328,6 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            {/* Ingredients Section */}
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b">Ingredients</h2>
               
@@ -405,7 +374,6 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            {/* Instructions Section */}
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b">Cooking Instructions</h2>
               
@@ -455,7 +423,6 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            {/* Submit Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t">
               <button
                 type="submit"
