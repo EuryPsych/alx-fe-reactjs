@@ -1,76 +1,50 @@
 import React from 'react';
+import HomePage from './components/HomePage';
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">RecipeShare</h1>
-            <div className="space-x-4">
-              <button className="text-gray-600 hover:text-gray-900">Sign up</button>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                Log in
-              </button>
+            <div className="flex items-center space-x-2">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+              </svg>
+              <h1 className="text-2xl font-bold text-gray-900">RecipeShare</h1>
+            </div>
+            <div className="flex items-center space-x-4">
+              <nav className="hidden md:flex space-x-6">
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Recipes</a>
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Categories</a>
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
+              </nav>
+              <div className="flex items-center space-x-4">
+                <button className="text-gray-600 hover:text-gray-900 font-medium">Sign up</button>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium">
+                  Log in
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Progress Section */}
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">My Plan For Today</h2>
-          <div className="w-full bg-gray-200 rounded-full h-4">
-            <div className="bg-blue-600 h-4 rounded-full" style={{ width: '75%' }}></div>
-          </div>
-          <p className="text-sm text-gray-600 mt-2">75% Complete</p>
-        </div>
+      {/* Main Content - HomePage Component */}
+      <HomePage />
 
-        {/* Recipe Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Featured Recipes */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Featured Recipes</h2>
-            <div className="space-y-3">
-              {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="flex items-center space-x-3">
-                  <input type="checkbox" className="h-5 w-5 text-blue-600 rounded" />
-                  <span className="text-gray-700">Recipe {item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Your Recipes */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Recipes</h2>
-            <div className="space-y-3">
-              {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="flex items-center space-x-3">
-                  <input type="checkbox" className="h-5 w-5 text-blue-600 rounded" />
-                  <span className="text-gray-700">My Recipe {item}</span>
-                </div>
-              ))}
-            </div>
+      {/* Footer */}
+      <footer className="bg-white border-t mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-gray-600">
+            <p>&copy; 2024 RecipeShare. Built with React & Tailwind CSS.</p>
           </div>
         </div>
-
-        {/* Project Info */}
-        <div className="mt-8 bg-blue-50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-2">
-            Building React Projects with Tailwind CSS
-          </h3>
-          <p className="text-blue-800">
-            You will learn how to create a responsive and visually appealing Recipe Sharing Platform 
-            using React and Tailwind CSS.
-          </p>
-        </div>
-      </main>
+      </footer>
     </div>
   );
 }
 
-export default App;
+export default HomePage;
