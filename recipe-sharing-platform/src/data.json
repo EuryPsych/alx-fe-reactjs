@@ -3,48 +3,112 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=800&h=600&fit=crop",
     "cookingTime": "20 mins",
-    "difficulty": "Medium"
+    "prepTime": "10 mins",
+    "difficulty": "Medium",
+    "servings": 4,
+    "ingredients": [
+      "400g spaghetti",
+      "200g guanciale or pancetta, diced",
+      "4 large eggs",
+      "100g Pecorino Romano cheese, grated",
+      "50g Parmesan cheese, grated",
+      "Freshly ground black pepper",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to boil and cook spaghetti according to package instructions.",
+      "While pasta cooks, sauté guanciale in a large pan until crispy (about 5-7 minutes).",
+      "In a bowl, whisk eggs with grated cheeses and plenty of black pepper.",
+      "Reserve 1 cup of pasta water before draining spaghetti.",
+      "Add hot pasta to the pan with guanciale (heat turned off).",
+      "Quickly pour egg mixture over pasta, tossing continuously.",
+      "Add pasta water gradually until creamy sauce forms.",
+      "Serve immediately with extra cheese and pepper."
+    ],
+    "nutrition": {
+      "calories": 650,
+      "protein": "28g",
+      "carbs": "75g",
+      "fat": "25g"
+    }
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop",
+    "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=600&fit=crop",
     "cookingTime": "45 mins",
-    "difficulty": "Medium"
+    "prepTime": "30 mins",
+    "difficulty": "Medium",
+    "servings": 4,
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "200ml yogurt",
+      "2 tbsp tikka masala paste",
+      "1 large onion, chopped",
+      "3 garlic cloves, minced",
+      "1 tbsp ginger, grated",
+      "400g canned tomatoes",
+      "100ml heavy cream",
+      "2 tbsp vegetable oil",
+      "1 tsp garam masala",
+      "Fresh cilantro for garnish",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and 1 tbsp tikka paste for 30 minutes.",
+      "Heat oil in a large pan and cook chicken until browned (5-7 minutes). Remove and set aside.",
+      "In the same pan, sauté onions until golden, add garlic and ginger.",
+      "Add remaining tikka paste and cook for 2 minutes.",
+      "Add canned tomatoes, simmer for 10 minutes until thickened.",
+      "Blend sauce until smooth (optional).",
+      "Return chicken to pan, add cream and garam masala.",
+      "Simmer for 10 minutes until chicken is cooked through.",
+      "Garnish with cilantro and serve with rice or naan."
+    ],
+    "nutrition": {
+      "calories": 420,
+      "protein": "35g",
+      "carbs": "15g",
+      "fat": "25g"
+    }
   },
   {
     "id": 3,
     "title": "Greek Salad",
     "summary": "Fresh and healthy salad with tomatoes, cucumbers, olives, and feta cheese.",
-    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&h=600&fit=crop",
     "cookingTime": "15 mins",
-    "difficulty": "Easy"
-  },
-  {
-    "id": 4,
-    "title": "Chocolate Lava Cake",
-    "summary": "Decadent chocolate cake with a warm, gooey chocolate center.",
-    "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&h=300&fit=crop",
-    "cookingTime": "30 mins",
-    "difficulty": "Hard"
-  },
-  {
-    "id": 5,
-    "title": "Avocado Toast",
-    "summary": "Simple and nutritious breakfast with mashed avocado on toasted bread.",
-    "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&h=300&fit=crop",
-    "cookingTime": "10 mins",
-    "difficulty": "Easy"
-  },
-  {
-    "id": 6,
-    "title": "Beef Tacos",
-    "summary": "Flavorful ground beef tacos with fresh toppings and warm tortillas.",
-    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
-    "cookingTime": "25 mins",
-    "difficulty": "Easy"
+    "prepTime": "15 mins",
+    "difficulty": "Easy",
+    "servings": 4,
+    "ingredients": [
+      "4 large tomatoes, chopped",
+      "1 cucumber, sliced",
+      "1 red onion, thinly sliced",
+      "1 green bell pepper, sliced",
+      "200g feta cheese, cubed",
+      "100g Kalamata olives",
+      "2 tbsp extra virgin olive oil",
+      "1 tbsp red wine vinegar",
+      "1 tsp dried oregano",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Combine tomatoes, cucumber, onion, and bell pepper in a large bowl.",
+      "Add olives and gently toss with vegetables.",
+      "Whisk together olive oil, vinegar, oregano, salt, and pepper.",
+      "Pour dressing over salad and toss gently.",
+      "Top with cubed feta cheese.",
+      "Let sit for 10 minutes before serving to allow flavors to meld."
+    ],
+    "nutrition": {
+      "calories": 280,
+      "protein": "10g",
+      "carbs": "15g",
+      "fat": "20g"
+    }
   }
 ]
